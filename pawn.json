@@ -1,0 +1,17 @@
+{
+	"user": "kristoisberg",
+	"repo": "gui-style",
+	"entry": "test.pwn",
+	"output": "test.amx",
+	"dependencies": [
+		"sampctl/samp-stdlib",
+		"IllidanS4/PawnPlus:v0.7",
+		"pawn-lang/YSI-Includes"
+	],
+	"runtime": {
+		"version": "0.3.7",
+		"mode": "server",
+		"rcon_password": "password",
+		"port": 7777
+	}
+}
