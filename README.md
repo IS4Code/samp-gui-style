@@ -1,30 +1,9 @@
-# gui-style
+# GUI Style
 
 [![sampctl](https://shields.southcla.ws/badge/sampctl-gui--style-2f2f2f.svg?style=for-the-badge)](https://github.com/kristoisberg/gui-style)
 
-<!--
-Short description of your library, why it's useful, some examples, pictures or
-videos. Link to your forum release thread too.
+This library will probably not be useful for other people, but it will be a dependency of my upcoming GUI framework. It provides an easy way of creating GUI element styles and modifying their attributes.
 
-Remember: You can use "forumfmt" to convert this readme to forum BBCode!
-
-What the sections below should be used for:
-
-`## Installation`: Leave this section un-edited unless you have some specific
-additional installation procedure.
-
-`## Testing`: Whether your library is tested with a simple `main()` and `print`,
-unit-tested, or demonstrated via prompting the player to connect, you should
-include some basic information for users to try out your code in some way.
-
-And finally, maintaining your version number`:
-
-* Follow [Semantic Versioning](https://semver.org/)
-* When you release a new version, update `VERSION` and `git tag` it
-* Versioning is important for sampctl to use the version control features
-
-Happy Pawning!
--->
 
 ## Installation
 
@@ -42,19 +21,57 @@ Include in your code and begin using the library:
 
 ## Usage
 
-<!--
-Write your code documentation or examples here. If your library is documented in
-the source code, direct users there. If not, list your API and describe it well
-in this section. If your library is passive and has no API, simply omit this
-section.
--->
+
+### Functions
+
+```pawn
+stock GUIStyle:CreateGUIStyle();
+stock bool:IsValidGUIStyle(GUIStyle:style_id);
+stock bool:DestroyGUIStyle(GUIStyle:style_id);
+stock GUIStyleAttributeType:GetGUIStyleAttributeType(GUIStyle:style_id, const attribute_name[], size = sizeof(attribute_name));
+stock bool:SetGUIStyleAttributeBool(GUIStyle:style_id, const attribute_name[], bool:value, size = sizeof(attribute_name));
+stock bool:GetGUIStyleAttributeBool(GUIStyle:style_id, const attribute_name[], &bool:value, size = sizeof(attribute_name));
+stock bool:SetGUIStyleAttributeInt(GUIStyle:style_id, const attribute_name[], value, size = sizeof(attribute_name));
+stock bool:GetGUIStyleAttributeInt(GUIStyle:style_id, const attribute_name[], &value, size = sizeof(attribute_name));
+stock bool:SetGUIStyleAttributeFloat(GUIStyle:style_id, const attribute_name[], Float:value, size = sizeof(attribute_name));
+stock bool:GetGUIStyleAttributeFloat(GUIStyle:style_id, const attribute_name[], &Float:value, size = sizeof(attribute_name));
+stock bool:SetGUIStyleAttributeVector2(GUIStyle:style_id, const attribute_name[], Float:x, Float:y, size = sizeof(attribute_name));
+stock bool:GetGUIStyleAttributeVector2(GUIStyle:style_id, const attribute_name[], &Float:x, &Float:y, size = sizeof(attribute_name));
+stock bool:SetGUIStyleAttributeVector3(GUIStyle:style_id, const attribute_name[], Float:x, Float:y, Float:z, size = sizeof(attribute_name));
+stock bool:GetGUIStyleAttributeVector3(GUIStyle:style_id, const attribute_name[], &Float:x, &Float:y, &Float:z, size = sizeof(attribute_name));
+stock bool:SetGUIStyleAttributeVector4(GUIStyle:style_id, const attribute_name[], Float:x, Float:y, Float:z, Float:a, size = sizeof(attribute_name));
+stock bool:GetGUIStyleAttributeVector4(GUIStyle:style_id, const attribute_name[], &Float:x, &Float:y, &Float:z, &Float:a, size = sizeof(attribute_name));
+stock bool:SetGUIStyleAttributeString(GUIStyle:style_id, const attribute_name[], const value[], value_size = sizeof(value), attribute_size = sizeof(attribute_name));
+stock bool:GetGUIStyleAttributeString(GUIStyle:style_id, const attribute_name[], value[], value_size = sizeof(value), attribute_size = sizeof(attribute_name));
+stock bool:SetGUIStyleAttributeString_s(GUIStyle:style_id, const attribute_name[], String:value, size = sizeof(attribute_name));
+stock bool:GetGUIStyleAttributeString_s(GUIStyle:style_id, const attribute_name[], &String:value, size = sizeof(attribute_name));
+```
+
+
+### Callbacks
+
+```pawn
+forward public OnGUIStyleAttributeChange(GUIStyle:style_id, const attribute_name[]);
+```
+
+
+### Data types
+
+```pawn
+enum GUIStyleAttributeType {
+	GUI_STYLE_ATTRIBUTE_NULL,
+	GUI_STYLE_ATTRIBUTE_BOOL,
+	GUI_STYLE_ATTRIBUTE_INT,
+	GUI_STYLE_ATTRIBUTE_FLOAT,
+	GUI_STYLE_ATTRIBUTE_STRING,
+	GUI_STYLE_ATTRIBUTE_VECTOR2,
+	GUI_STYLE_ATTRIBUTE_VECTOR3,
+	GUI_STYLE_ATTRIBUTE_VECTOR4
+};
+```
+
 
 ## Testing
-
-<!--
-Depending on whether your package is tested via in-game "demo tests" or
-y_testing unit-tests, you should indicate to readers what to expect below here.
--->
 
 To test, simply run the package:
 
