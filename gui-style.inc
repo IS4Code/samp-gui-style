@@ -8,6 +8,7 @@
 #include <YSI_Data\y_iterate>
 #include <YSI_Core\y_utils>
 #include <PawnPlus>
+#include <YSI_Coding\y_hooks>
 
 
 #if !defined MAX_GUI_STYLES
@@ -32,6 +33,8 @@ enum GUIStyleAttributeType {
 static Iterator:GUIStyles<MAX_GUI_STYLES>;
 static Map:GUIStyleAttributes[MAX_GUI_STYLES];
 
+
+DEFINE_HOOK_REPLACEMENT(Attribute, Attr);
 
 forward public OnGUIStyleAttributeChange(GUIStyle:style_id, const attribute_name[]);
 
