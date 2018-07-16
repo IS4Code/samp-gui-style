@@ -464,6 +464,6 @@ stock bool:DestroyGUIStyle(GUIStyle:style_id) {
 
 	Iter_Remove(GUIStyles, id);
 
-	CallLocalFunction("OnGUIStyleDestroyed", "i", _:style_id;
+	CallLocalFunction("OnGUIStyleDestroyed", "i", _:style_id);
 	return true;
 }
