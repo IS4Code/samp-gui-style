@@ -36,7 +36,8 @@ static Map:GUIStyleAttributes[MAX_GUI_STYLES];
 
 DEFINE_HOOK_REPLACEMENT(Attribute, Attr);
 
-forward public OnGUIStyleAttributeChange(GUIStyle:style_id, const attribute_name[]);
+forward public OnGUIStyleAttributeChanged(GUIStyle:style_id, const attribute_name[]);
+forward public OnGUIStyleDestroyed(GUIStyle:style_id);
 
 
 stock GUIStyle:CreateGUIStyle() {
@@ -419,7 +420,7 @@ stock bool:SetGUIStyleAttributeString_s(GUIStyle:style_id, const attribute_name[
 
 	map_arr_set(GUIStyleAttributes[id], attribute_name, str_to_global(value), size);
 
-	CallLocalFunction("OnGUIStyleAttributeChange", "is", _:style_id, size);
+	CallLocalFunction("OnGUIStyleAttributeChanged", "is", _:style_id, size);
 	return true;
 }
 
@@ -462,5 +463,7 @@ stock bool:DestroyGUIStyle(GUIStyle:style_id) {
 	GUIStyleAttributes[id] = Map:0;
 
 	Iter_Remove(GUIStyles, id);
+
+	CallLocalFunction("OnGUIStyleDestroyed", "i", _:style_id;
 	return true;
 }
