@@ -31,7 +31,7 @@ enum GUIStyleAttributeType {
 
 
 static Iterator:GUIStyles<MAX_GUI_STYLES>;
-static Map:GUIStyleAttributes[MAX_GUI_STYLES];
+static Map:GUIStyleAttributes[GUIStyle:MAX_GUI_STYLES];
 
 
 DEFINE_HOOK_REPLACEMENT(Attribute, Attr);
@@ -41,27 +41,30 @@ forward public OnGUIStyleDestroyed(GUIStyle:style_id);
 
 
 stock GUIStyle:CreateGUIStyle() {
-	new id = Iter_Free(GUIStyles);
+	new GUIStyle:id = GUIStyle:Iter_Free(GUIStyles);
 
-	if (id == cellmin) {
+	if (id == GUIStyle:cellmin) {
 		return INVALID_GUI_STYLE_ID;
 	}
 
 	GUIStyleAttributes[id] = map_new();
 
-	Iter_Add(GUIStyles, id);
-	return GUIStyle:id;
+	Iter_Add(GUIStyles, _:id);
+	return id;
 }
 
 
-stock GUIStyleAttributeType:GetGUIStyleAttributeType(GUIStyle:style_id, const attribute_name[], size = sizeof(attribute_name)) {
+stock bool:IsValidGUIStyle(GUIStyle:id) {
+	return Iter_Contains(GUIStyles, _:id);
+}
+
+
+stock GUIStyleAttributeType:GetGUIStyleAttributeType(GUIStyle:id, const attribute_name[], size = sizeof(attribute_name)) {
 	if (isnull(attribute_name)) {
 		return GUI_STYLE_ATTRIBUTE_NULL;
 	}
 
-	new id = _:style_id;
-
-	if (!Iter_Contains(GUIStyles, id)) {
+	if (!IsValidGUIStyle(id)) {
 		return GUI_STYLE_ATTRIBUTE_NULL;
 	}
 
@@ -103,36 +106,31 @@ stock GUIStyleAttributeType:GetGUIStyleAttributeType(GUIStyle:style_id, const at
 }
 
 
-stock bool:SetGUIStyleAttributeBool(GUIStyle:style_id, const attribute_name[], bool:value, size = sizeof(attribute_name)) {
+stock bool:SetGUIStyleAttributeBool(GUIStyle:id, const attribute_name[], bool:value, size = sizeof(attribute_name)) {
 	if (isnull(attribute_name)) {
 		return false;
 	}
 
-	new id = _:style_id;
-
-	if (!Iter_Contains(GUIStyles, id)) {
+	if (!IsValidGUIStyle(id)) {
 		return false;
 	}
 
 	map_arr_set(GUIStyleAttributes[id], attribute_name, value, size);
 
-	CallLocalFunction("OnGUIStyleAttributeChanged", "is", _:style_id, attribute_name);
+	CallLocalFunction("OnGUIStyleAttributeChanged", "is", _:id, attribute_name);
 	return true;
 }
 
 
-stock bool:GetGUIStyleAttributeBool(GUIStyle:style_id, const attribute_name[], &bool:value, size = sizeof(attribute_name)) {
+stock bool:GetGUIStyleAttributeBool(GUIStyle:id, const attribute_name[], &bool:value, size = sizeof(attribute_name)) {
 	if (isnull(attribute_name)) {
 		return false;
 	}
 
-	new id = _:style_id;
-
-	if (!Iter_Contains(GUIStyles, id)) {
+	if (!IsValidGUIStyle(id)) {
 		return false;
 	}
-
-	if (GetGUIStyleAttributeType(style_id, attribute_name, size) != GUI_STYLE_ATTRIBUTE_BOOL) {
+	if (GetGUIStyleAttributeType(id, attribute_name, size) != GUI_STYLE_ATTRIBUTE_BOOL) {
 		return false;
 	}
 
@@ -141,36 +139,32 @@ stock bool:GetGUIStyleAttributeBool(GUIStyle:style_id, const attribute_name[], &
 }
 
 
-stock bool:SetGUIStyleAttributeInt(GUIStyle:style_id, const attribute_name[], value, size = sizeof(attribute_name)) {
+stock bool:SetGUIStyleAttributeInt(GUIStyle:id, const attribute_name[], value, size = sizeof(attribute_name)) {
 	if (isnull(attribute_name)) {
 		return false;
 	}
 
-	new id = _:style_id;
-
-	if (!Iter_Contains(GUIStyles, id)) {
+	if (!IsValidGUIStyle(id)) {
 		return false;
 	}
 
 	map_arr_set(GUIStyleAttributes[id], attribute_name, value, size);
 
-	CallLocalFunction("OnGUIStyleAttributeChanged", "is", _:style_id, attribute_name);
+	CallLocalFunction("OnGUIStyleAttributeChanged", "is", _:id, attribute_name);
 	return true;
 }
 
 
-stock bool:GetGUIStyleAttributeInt(GUIStyle:style_id, const attribute_name[], &value, size = sizeof(attribute_name)) {
+stock bool:GetGUIStyleAttributeInt(GUIStyle:id, const attribute_name[], &value, size = sizeof(attribute_name)) {
 	if (isnull(attribute_name)) {
 		return false;
 	}
 
-	new id = _:style_id;
-
-	if (!Iter_Contains(GUIStyles, id)) {
+	if (!IsValidGUIStyle(id)) {
 		return false;
 	}
 
-	if (GetGUIStyleAttributeType(style_id, attribute_name, size) != GUI_STYLE_ATTRIBUTE_INT) {
+	if (GetGUIStyleAttributeType(id, attribute_name, size) != GUI_STYLE_ATTRIBUTE_INT) {
 		return false;
 	}
 
@@ -179,36 +173,32 @@ stock bool:GetGUIStyleAttributeInt(GUIStyle:style_id, const attribute_name[], &v
 }
 
 
-stock bool:SetGUIStyleAttributeFloat(GUIStyle:style_id, const attribute_name[], Float:value, size = sizeof(attribute_name)) {
+stock bool:SetGUIStyleAttributeFloat(GUIStyle:id, const attribute_name[], Float:value, size = sizeof(attribute_name)) {
 	if (isnull(attribute_name)) {
 		return false;
 	}
 
-	new id = _:style_id;
-
-	if (!Iter_Contains(GUIStyles, id)) {
+	if (!IsValidGUIStyle(id)) {
 		return false;
 	}
 
 	map_arr_set(GUIStyleAttributes[id], attribute_name, value, size);
 
-	CallLocalFunction("OnGUIStyleAttributeChanged", "is", _:style_id, attribute_name);
+	CallLocalFunction("OnGUIStyleAttributeChanged", "is", _:id, attribute_name);
 	return true;
 }
 
 
-stock bool:GetGUIStyleAttributeFloat(GUIStyle:style_id, const attribute_name[], &Float:value, size = sizeof(attribute_name)) {
+stock bool:GetGUIStyleAttributeFloat(GUIStyle:id, const attribute_name[], &Float:value, size = sizeof(attribute_name)) {
 	if (isnull(attribute_name)) {
 		return false;
 	}
 
-	new id = _:style_id;
-
-	if (!Iter_Contains(GUIStyles, id)) {
+	if (!IsValidGUIStyle(id)) {
 		return false;
 	}
 
-	if (GetGUIStyleAttributeType(style_id, attribute_name, size) != GUI_STYLE_ATTRIBUTE_FLOAT) {
+	if (GetGUIStyleAttributeType(id, attribute_name, size) != GUI_STYLE_ATTRIBUTE_FLOAT) {
 		return false;
 	}
 
@@ -217,14 +207,12 @@ stock bool:GetGUIStyleAttributeFloat(GUIStyle:style_id, const attribute_name[], 
 }
 
 
-stock bool:SetGUIStyleAttributeVector2(GUIStyle:style_id, const attribute_name[], Float:x, Float:y, size = sizeof(attribute_name)) {
+stock bool:SetGUIStyleAttributeVector2(GUIStyle:id, const attribute_name[], Float:x, Float:y, size = sizeof(attribute_name)) {
 	if (isnull(attribute_name)) {
 		return false;
 	}
 
-	new id = _:style_id;
-
-	if (!Iter_Contains(GUIStyles, id)) {
+	if (!IsValidGUIStyle(id)) {
 		return false;
 	}
 
@@ -235,23 +223,21 @@ stock bool:SetGUIStyleAttributeVector2(GUIStyle:style_id, const attribute_name[]
 
 	map_arr_set_arr(GUIStyleAttributes[id], attribute_name, value, 2, size);
 
-	CallLocalFunction("OnGUIStyleAttributeChanged", "is", _:style_id, attribute_name);
+	CallLocalFunction("OnGUIStyleAttributeChanged", "is", _:id, attribute_name);
 	return true;
 }
 
 
-stock bool:GetGUIStyleAttributeVector2(GUIStyle:style_id, const attribute_name[], &Float:x, &Float:y, size = sizeof(attribute_name)) {
+stock bool:GetGUIStyleAttributeVector2(GUIStyle:id, const attribute_name[], &Float:x, &Float:y, size = sizeof(attribute_name)) {
 	if (isnull(attribute_name)) {
 		return false;
 	}
 
-	new id = _:style_id;
-
-	if (!Iter_Contains(GUIStyles, id)) {
+	if (!IsValidGUIStyle(id)) {
 		return false;
 	}
 
-	if (GetGUIStyleAttributeType(style_id, attribute_name, size) != GUI_STYLE_ATTRIBUTE_VECTOR2) {
+	if (GetGUIStyleAttributeType(id, attribute_name, size) != GUI_STYLE_ATTRIBUTE_VECTOR2) {
 		return false;
 	}
 
@@ -265,14 +251,12 @@ stock bool:GetGUIStyleAttributeVector2(GUIStyle:style_id, const attribute_name[]
 }
 
 
-stock bool:SetGUIStyleAttributeVector3(GUIStyle:style_id, const attribute_name[], Float:x, Float:y, Float:z, size = sizeof(attribute_name)) {
+stock bool:SetGUIStyleAttributeVector3(GUIStyle:id, const attribute_name[], Float:x, Float:y, Float:z, size = sizeof(attribute_name)) {
 	if (isnull(attribute_name)) {
 		return false;
 	}
 
-	new id = _:style_id;
-
-	if (!Iter_Contains(GUIStyles, id)) {
+	if (!IsValidGUIStyle(id)) {
 		return false;
 	}
 
@@ -284,23 +268,21 @@ stock bool:SetGUIStyleAttributeVector3(GUIStyle:style_id, const attribute_name[]
 
 	map_arr_set_arr(GUIStyleAttributes[id], attribute_name, value, 3, size);
 
-	CallLocalFunction("OnGUIStyleAttributeChanged", "is", _:style_id, attribute_name);
+	CallLocalFunction("OnGUIStyleAttributeChanged", "is", _:id, attribute_name);
 	return true;
 }
 
 
-stock bool:GetGUIStyleAttributeVector3(GUIStyle:style_id, const attribute_name[], &Float:x, &Float:y, &Float:z, size = sizeof(attribute_name)) {
+stock bool:GetGUIStyleAttributeVector3(GUIStyle:id, const attribute_name[], &Float:x, &Float:y, &Float:z, size = sizeof(attribute_name)) {
 	if (isnull(attribute_name)) {
 		return false;
 	}
 
-	new id = _:style_id;
-
-	if (!Iter_Contains(GUIStyles, id)) {
+	if (!IsValidGUIStyle(id)) {
 		return false;
 	}
 
-	if (GetGUIStyleAttributeType(style_id, attribute_name, size) != GUI_STYLE_ATTRIBUTE_VECTOR3) {
+	if (GetGUIStyleAttributeType(id, attribute_name, size) != GUI_STYLE_ATTRIBUTE_VECTOR3) {
 		return false;
 	}
 
@@ -315,14 +297,12 @@ stock bool:GetGUIStyleAttributeVector3(GUIStyle:style_id, const attribute_name[]
 }
 
 
-stock bool:SetGUIStyleAttributeVector4(GUIStyle:style_id, const attribute_name[], Float:x, Float:y, Float:z, Float:a, size = sizeof(attribute_name)) {
+stock bool:SetGUIStyleAttributeVector4(GUIStyle:id, const attribute_name[], Float:x, Float:y, Float:z, Float:a, size = sizeof(attribute_name)) {
 	if (isnull(attribute_name)) {
 		return false;
 	}
 
-	new id = _:style_id;
-
-	if (!Iter_Contains(GUIStyles, id)) {
+	if (!IsValidGUIStyle(id)) {
 		return false;
 	}
 
@@ -335,23 +315,21 @@ stock bool:SetGUIStyleAttributeVector4(GUIStyle:style_id, const attribute_name[]
 
 	map_arr_set_arr(GUIStyleAttributes[id], attribute_name, value, 4, size);
 
-	CallLocalFunction("OnGUIStyleAttributeChanged", "is", _:style_id, attribute_name);
+	CallLocalFunction("OnGUIStyleAttributeChanged", "is", _:id, attribute_name);
 	return true;
 }
 
 
-stock bool:GetGUIStyleAttributeVector4(GUIStyle:style_id, const attribute_name[], &Float:x, &Float:y, &Float:z, &Float:a, size = sizeof(attribute_name)) {
+stock bool:GetGUIStyleAttributeVector4(GUIStyle:id, const attribute_name[], &Float:x, &Float:y, &Float:z, &Float:a, size = sizeof(attribute_name)) {
 	if (isnull(attribute_name)) {
 		return false;
 	}
 
-	new id = _:style_id;
-
-	if (!Iter_Contains(GUIStyles, id)) {
+	if (!IsValidGUIStyle(id)) {
 		return false;
 	}
 
-	if (GetGUIStyleAttributeType(style_id, attribute_name, size) != GUI_STYLE_ATTRIBUTE_VECTOR4) {
+	if (GetGUIStyleAttributeType(id, attribute_name, size) != GUI_STYLE_ATTRIBUTE_VECTOR4) {
 		return false;
 	}
 
@@ -367,36 +345,32 @@ stock bool:GetGUIStyleAttributeVector4(GUIStyle:style_id, const attribute_name[]
 }
 
 
-stock bool:SetGUIStyleAttributeString(GUIStyle:style_id, const attribute_name[], const value[], value_size = sizeof(value), attribute_size = sizeof(attribute_name)) {
+stock bool:SetGUIStyleAttributeString(GUIStyle:id, const attribute_name[], const value[], value_size = sizeof(value), attribute_size = sizeof(attribute_name)) {
 	if (isnull(attribute_name)) {
 		return false;
 	}
 
-	new id = _:style_id;
-
-	if (!Iter_Contains(GUIStyles, id)) {
+	if (!IsValidGUIStyle(id)) {
 		return false;
 	}
 
 	map_arr_set(GUIStyleAttributes[id], attribute_name, str_to_global(str_new_static(value, .size = value_size)), attribute_size);
 
-	CallLocalFunction("OnGUIStyleAttributeChanged", "is", _:style_id, attribute_name);
+	CallLocalFunction("OnGUIStyleAttributeChanged", "is", _:id, attribute_name);
 	return true;
 }
 
 
-stock bool:GetGUIStyleAttributeString(GUIStyle:style_id, const attribute_name[], value[], value_size = sizeof(value), attribute_size = sizeof(attribute_name)) {
+stock bool:GetGUIStyleAttributeString(GUIStyle:id, const attribute_name[], value[], value_size = sizeof(value), attribute_size = sizeof(attribute_name)) {
 	if (isnull(attribute_name)) {
 		return false;
 	}
 
-	new id = _:style_id;
-
-	if (!Iter_Contains(GUIStyles, id)) {
+	if (!IsValidGUIStyle(id)) {
 		return false;
 	}
 
-	if (GetGUIStyleAttributeType(style_id, attribute_name, attribute_size) != GUI_STYLE_ATTRIBUTE_STRING) {
+	if (GetGUIStyleAttributeType(id, attribute_name, attribute_size) != GUI_STYLE_ATTRIBUTE_STRING) {
 		return false;
 	}
 
@@ -407,36 +381,32 @@ stock bool:GetGUIStyleAttributeString(GUIStyle:style_id, const attribute_name[],
 }
 
 
-stock bool:SetGUIStyleAttributeString_s(GUIStyle:style_id, const attribute_name[], String:value, size = sizeof(attribute_name)) {
+stock bool:SetGUIStyleAttributeString_s(GUIStyle:id, const attribute_name[], String:value, size = sizeof(attribute_name)) {
 	if (isnull(attribute_name)) {
 		return false;
 	}
 
-	new id = _:style_id;
-
-	if (!Iter_Contains(GUIStyles, id)) {
+	if (!IsValidGUIStyle(id)) {
 		return false;
 	}
 
 	map_arr_set(GUIStyleAttributes[id], attribute_name, str_to_global(value), size);
 
-	CallLocalFunction("OnGUIStyleAttributeChanged", "is", _:style_id, size);
+	CallLocalFunction("OnGUIStyleAttributeChanged", "is", _:id, size);
 	return true;
 }
 
 
-stock bool:GetGUIStyleAttributeString_s(GUIStyle:style_id, const attribute_name[], &String:value, size = sizeof(attribute_name)) {
+stock bool:GetGUIStyleAttributeString_s(GUIStyle:id, const attribute_name[], &String:value, size = sizeof(attribute_name)) {
 	if (isnull(attribute_name)) {
 		return false;
 	}
 
-	new id = _:style_id;
-
-	if (!Iter_Contains(GUIStyles, id)) {
+	if (!IsValidGUIStyle(id)) {
 		return false;
 	}
 
-	if (GetGUIStyleAttributeType(style_id, attribute_name, size) != GUI_STYLE_ATTRIBUTE_STRING) {
+	if (GetGUIStyleAttributeType(id, attribute_name, size) != GUI_STYLE_ATTRIBUTE_STRING) {
 		return false;
 	}
 
@@ -445,25 +415,16 @@ stock bool:GetGUIStyleAttributeString_s(GUIStyle:style_id, const attribute_name[
 }
 
 
-stock bool:IsValidGUIStyle(GUIStyle:style_id) {
-	new id = _:style_id;
-
-	return Iter_Contains(GUIStyles, id);
-}
-
-
-stock bool:DestroyGUIStyle(GUIStyle:style_id) {
-	new id = _:style_id;
-
-	if (!Iter_Contains(GUIStyles, id)) {
+stock bool:DestroyGUIStyle(GUIStyle:id) {
+	if (!IsValidGUIStyle(id)) {
 		return false;
 	}
 
 	map_delete_deep(GUIStyleAttributes[id]);
 	GUIStyleAttributes[id] = Map:0;
 
-	Iter_Remove(GUIStyles, id);
+	Iter_Remove(GUIStyles, _:id);
 
-	CallLocalFunction("OnGUIStyleDestroyed", "i", _:style_id);
+	CallLocalFunction("OnGUIStyleDestroyed", "i", _:id);
 	return true;
 }
