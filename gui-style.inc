@@ -116,7 +116,7 @@ stock bool:SetGUIStyleAttributeBool(GUIStyle:style_id, const attribute_name[], b
 
 	map_arr_set(GUIStyleAttributes[id], attribute_name, value, size);
 
-	CallLocalFunction("OnGUIStyleAttributeChange", "is", _:style_id, attribute_name);
+	CallLocalFunction("OnGUIStyleAttributeChanged", "is", _:style_id, attribute_name);
 	return true;
 }
 
@@ -154,7 +154,7 @@ stock bool:SetGUIStyleAttributeInt(GUIStyle:style_id, const attribute_name[], va
 
 	map_arr_set(GUIStyleAttributes[id], attribute_name, value, size);
 
-	CallLocalFunction("OnGUIStyleAttributeChange", "is", _:style_id, attribute_name);
+	CallLocalFunction("OnGUIStyleAttributeChanged", "is", _:style_id, attribute_name);
 	return true;
 }
 
@@ -192,7 +192,7 @@ stock bool:SetGUIStyleAttributeFloat(GUIStyle:style_id, const attribute_name[], 
 
 	map_arr_set(GUIStyleAttributes[id], attribute_name, value, size);
 
-	CallLocalFunction("OnGUIStyleAttributeChange", "is", _:style_id, attribute_name);
+	CallLocalFunction("OnGUIStyleAttributeChanged", "is", _:style_id, attribute_name);
 	return true;
 }
 
@@ -235,7 +235,7 @@ stock bool:SetGUIStyleAttributeVector2(GUIStyle:style_id, const attribute_name[]
 
 	map_arr_set_arr(GUIStyleAttributes[id], attribute_name, value, 2, size);
 
-	CallLocalFunction("OnGUIStyleAttributeChange", "is", _:style_id, attribute_name);
+	CallLocalFunction("OnGUIStyleAttributeChanged", "is", _:style_id, attribute_name);
 	return true;
 }
 
@@ -284,7 +284,7 @@ stock bool:SetGUIStyleAttributeVector3(GUIStyle:style_id, const attribute_name[]
 
 	map_arr_set_arr(GUIStyleAttributes[id], attribute_name, value, 3, size);
 
-	CallLocalFunction("OnGUIStyleAttributeChange", "is", _:style_id, attribute_name);
+	CallLocalFunction("OnGUIStyleAttributeChanged", "is", _:style_id, attribute_name);
 	return true;
 }
 
@@ -335,7 +335,7 @@ stock bool:SetGUIStyleAttributeVector4(GUIStyle:style_id, const attribute_name[]
 
 	map_arr_set_arr(GUIStyleAttributes[id], attribute_name, value, 4, size);
 
-	CallLocalFunction("OnGUIStyleAttributeChange", "is", _:style_id, attribute_name);
+	CallLocalFunction("OnGUIStyleAttributeChanged", "is", _:style_id, attribute_name);
 	return true;
 }
 
@@ -380,7 +380,7 @@ stock bool:SetGUIStyleAttributeString(GUIStyle:style_id, const attribute_name[],
 
 	map_arr_set(GUIStyleAttributes[id], attribute_name, str_to_global(str_new_static(value, .size = value_size)), attribute_size);
 
-	CallLocalFunction("OnGUIStyleAttributeChange", "is", _:style_id, attribute_name);
+	CallLocalFunction("OnGUIStyleAttributeChanged", "is", _:style_id, attribute_name);
 	return true;
 }
 
