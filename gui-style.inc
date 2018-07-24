@@ -68,13 +68,11 @@ stock GUIStyleAttributeType:GetGUIStyleAttributeType(GUIStyle:id, const attribut
 		return GUI_STYLE_ATTRIBUTE_NULL;
 	}
 
-	new Variant:value = map_arr_get_var(GUIStyleAttributes[id], attribute_name, size);
-
-	if (!value) {
+	if (!map_has_arr_key(GUIStyleAttributes[id], attribute_name, size)) {
 		return GUI_STYLE_ATTRIBUTE_NULL;
 	}
 
-	switch (var_sizeof(value)) {
+	switch (map_arr_sizeof(GUIStyleAttributes[id], attribute_name, size)) {
 		case 2: {
 			return GUI_STYLE_ATTRIBUTE_VECTOR2;
 		}
@@ -88,7 +86,7 @@ stock GUIStyleAttributeType:GetGUIStyleAttributeType(GUIStyle:id, const attribut
 		}
 	}
 
-	new tag = var_tagof(value);
+	new tag = map_arr_tagof(GUIStyleAttributes[id], attribute_name, size);
 
 	if (tag == tagof(Float:)) {
 		return GUI_STYLE_ATTRIBUTE_FLOAT;
