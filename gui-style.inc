@@ -59,16 +59,21 @@ stock bool:IsValidGUIStyle(GUIStyle:id) {
 }
 
 
-stock GUIStyleAttributeType:GetGUIStyleAttributeType(GUIStyle:id, const attribute_name[], size = sizeof(attribute_name)) {
+stock bool:IsValidGUIStyleAttribute(GUIStyle:id, const attribute_name[], size = sizeof(attribute_name)) {
 	if (isnull(attribute_name)) {
-		return GUI_STYLE_ATTRIBUTE_NULL;
+		return false;
 	}
 
 	if (!IsValidGUIStyle(id)) {
-		return GUI_STYLE_ATTRIBUTE_NULL;
+		return false;
 	}
 
-	if (!map_has_arr_key(GUIStyleAttributes[id], attribute_name, size)) {
+	return map_has_arr_key(GUIStyleAttributes[id], attribute_name, size);
+}
+
+
+stock GUIStyleAttributeType:GetGUIStyleAttributeType(GUIStyle:id, const attribute_name[], size = sizeof(attribute_name)) {
+	if (!IsValidGUIStyleAttribute(id, attribute_name, size)) {
 		return GUI_STYLE_ATTRIBUTE_NULL;
 	}
 
@@ -121,13 +126,6 @@ stock bool:SetGUIStyleAttributeBool(GUIStyle:id, const attribute_name[], bool:va
 
 
 stock bool:GetGUIStyleAttributeBool(GUIStyle:id, const attribute_name[], &bool:value, size = sizeof(attribute_name)) {
-	if (isnull(attribute_name)) {
-		return false;
-	}
-
-	if (!IsValidGUIStyle(id)) {
-		return false;
-	}
 	if (GetGUIStyleAttributeType(id, attribute_name, size) != GUI_STYLE_ATTRIBUTE_BOOL) {
 		return false;
 	}
@@ -154,14 +152,6 @@ stock bool:SetGUIStyleAttributeInt(GUIStyle:id, const attribute_name[], value, s
 
 
 stock bool:GetGUIStyleAttributeInt(GUIStyle:id, const attribute_name[], &value, size = sizeof(attribute_name)) {
-	if (isnull(attribute_name)) {
-		return false;
-	}
-
-	if (!IsValidGUIStyle(id)) {
-		return false;
-	}
-
 	if (GetGUIStyleAttributeType(id, attribute_name, size) != GUI_STYLE_ATTRIBUTE_INT) {
 		return false;
 	}
@@ -188,14 +178,6 @@ stock bool:SetGUIStyleAttributeFloat(GUIStyle:id, const attribute_name[], Float:
 
 
 stock bool:GetGUIStyleAttributeFloat(GUIStyle:id, const attribute_name[], &Float:value, size = sizeof(attribute_name)) {
-	if (isnull(attribute_name)) {
-		return false;
-	}
-
-	if (!IsValidGUIStyle(id)) {
-		return false;
-	}
-
 	if (GetGUIStyleAttributeType(id, attribute_name, size) != GUI_STYLE_ATTRIBUTE_FLOAT) {
 		return false;
 	}
@@ -227,14 +209,6 @@ stock bool:SetGUIStyleAttributeVector2(GUIStyle:id, const attribute_name[], Floa
 
 
 stock bool:GetGUIStyleAttributeVector2(GUIStyle:id, const attribute_name[], &Float:x, &Float:y, size = sizeof(attribute_name)) {
-	if (isnull(attribute_name)) {
-		return false;
-	}
-
-	if (!IsValidGUIStyle(id)) {
-		return false;
-	}
-
 	if (GetGUIStyleAttributeType(id, attribute_name, size) != GUI_STYLE_ATTRIBUTE_VECTOR2) {
 		return false;
 	}
@@ -272,14 +246,6 @@ stock bool:SetGUIStyleAttributeVector3(GUIStyle:id, const attribute_name[], Floa
 
 
 stock bool:GetGUIStyleAttributeVector3(GUIStyle:id, const attribute_name[], &Float:x, &Float:y, &Float:z, size = sizeof(attribute_name)) {
-	if (isnull(attribute_name)) {
-		return false;
-	}
-
-	if (!IsValidGUIStyle(id)) {
-		return false;
-	}
-
 	if (GetGUIStyleAttributeType(id, attribute_name, size) != GUI_STYLE_ATTRIBUTE_VECTOR3) {
 		return false;
 	}
@@ -319,14 +285,6 @@ stock bool:SetGUIStyleAttributeVector4(GUIStyle:id, const attribute_name[], Floa
 
 
 stock bool:GetGUIStyleAttributeVector4(GUIStyle:id, const attribute_name[], &Float:x, &Float:y, &Float:z, &Float:a, size = sizeof(attribute_name)) {
-	if (isnull(attribute_name)) {
-		return false;
-	}
-
-	if (!IsValidGUIStyle(id)) {
-		return false;
-	}
-
 	if (GetGUIStyleAttributeType(id, attribute_name, size) != GUI_STYLE_ATTRIBUTE_VECTOR4) {
 		return false;
 	}
@@ -360,14 +318,6 @@ stock bool:SetGUIStyleAttributeString(GUIStyle:id, const attribute_name[], const
 
 
 stock bool:GetGUIStyleAttributeString(GUIStyle:id, const attribute_name[], value[], value_size = sizeof(value), attribute_size = sizeof(attribute_name)) {
-	if (isnull(attribute_name)) {
-		return false;
-	}
-
-	if (!IsValidGUIStyle(id)) {
-		return false;
-	}
-
 	if (GetGUIStyleAttributeType(id, attribute_name, attribute_size) != GUI_STYLE_ATTRIBUTE_STRING) {
 		return false;
 	}
@@ -396,14 +346,6 @@ stock bool:SetGUIStyleAttributeString_s(GUIStyle:id, const attribute_name[], Str
 
 
 stock bool:GetGUIStyleAttributeString_s(GUIStyle:id, const attribute_name[], &String:value, size = sizeof(attribute_name)) {
-	if (isnull(attribute_name)) {
-		return false;
-	}
-
-	if (!IsValidGUIStyle(id)) {
-		return false;
-	}
-
 	if (GetGUIStyleAttributeType(id, attribute_name, size) != GUI_STYLE_ATTRIBUTE_STRING) {
 		return false;
 	}
