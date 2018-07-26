@@ -72,6 +72,18 @@ stock bool:IsValidGUIStyleAttribute(GUIStyle:id, const attribute_name[], size = 
 }
 
 
+stock bool:RemoveGUIStyleAttribute(GUIStyle:id, const attribute_name[], size = sizeof(attribute_name)) {
+	if (!IsValidGUIStyleAttribute(id, attribute_name, size)) {
+		return false;
+	}
+
+	map_arr_remove(GUIStyleAttributes[id], attribute_name, size);
+
+	CallLocalFunction("OnGUIStyleAttributeChanged", "is", _:id, attribute_name);
+	return true;
+}
+
+
 stock GUIStyleAttributeType:GetGUIStyleAttributeType(GUIStyle:id, const attribute_name[], size = sizeof(attribute_name)) {
 	if (!IsValidGUIStyleAttribute(id, attribute_name, size)) {
 		return GUI_STYLE_ATTRIBUTE_NULL;

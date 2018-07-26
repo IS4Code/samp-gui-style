@@ -14,6 +14,10 @@ Test:Main() {
     GetGUIStyleAttributeBool(id, "asd", bool_value);
     ASSERT(bool_value == true);
 
+    ASSERT(IsValidGUIStyleAttribute(id, "asd") == true);
+    ASSERT(RemoveGUIStyleAttribute(id, "asd") == true);
+    ASSERT(IsValidGUIStyleAttribute(id, "asd") == false);
+
     SetGUIStyleAttributeInt(id, "coolness", 9000);
     ASSERT(GetGUIStyleAttributeType(id, "coolness") == GUI_STYLE_ATTRIBUTE_INT);
 
