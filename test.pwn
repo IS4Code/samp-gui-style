@@ -70,7 +70,7 @@ Test:Main() {
 
     new String:asd;
     GetGUIStyleAttributeString_s(id, "asd", asd);
-    ASSERT(str_equal(asd, str_new("asd")));
+    ASSERT(str_eq(asd, str_new("asd")));
 
     DestroyGUIStyle(id);
     ASSERT(IsValidGUIStyle(id) == false);

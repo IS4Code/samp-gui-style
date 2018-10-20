@@ -72,18 +72,6 @@ stock bool:IsValidGUIStyleAttribute(GUIStyle:id, const attribute_name[], size = 
 }
 
 
-stock bool:RemoveGUIStyleAttribute(GUIStyle:id, const attribute_name[], size = sizeof(attribute_name)) {
-	if (!IsValidGUIStyleAttribute(id, attribute_name, size)) {
-		return false;
-	}
-
-	map_arr_remove(GUIStyleAttributes[id], attribute_name, size);
-
-	CallLocalFunction("OnGUIStyleAttributeChanged", "is", _:id, attribute_name);
-	return true;
-}
-
-
 stock GUIStyleAttributeType:GetGUIStyleAttributeType(GUIStyle:id, const attribute_name[], size = sizeof(attribute_name)) {
 	if (!IsValidGUIStyleAttribute(id, attribute_name, size)) {
 		return GUI_STYLE_ATTRIBUTE_NULL;
@@ -118,6 +106,24 @@ stock GUIStyleAttributeType:GetGUIStyleAttributeType(GUIStyle:id, const attribut
 	}
 
 	return GUI_STYLE_ATTRIBUTE_INT;
+}
+
+
+stock bool:RemoveGUIStyleAttribute(GUIStyle:id, const attribute_name[], size = sizeof(attribute_name)) {
+	switch (GetGUIStyleAttributeType(id, attribute_name, size)) {
+		case GUI_STYLE_ATTRIBUTE_NULL: {
+			return false;
+		}
+
+		case GUI_STYLE_ATTRIBUTE_STRING: {
+			str_delete(GlobalString:map_arr_get(GUIStyleAttributes[id], attribute_name, .key_size = size));
+		}
+	}
+
+	map_arr_remove(GUIStyleAttributes[id], attribute_name, size);
+
+	CallLocalFunction("OnGUIStyleAttributeChanged", "is", _:id, attribute_name);
+	return true;
 }
 
 
