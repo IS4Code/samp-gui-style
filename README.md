@@ -1,6 +1,6 @@
-# GUI Style
+# SA-MP GUI Style
 
-[![sampctl](https://shields.southcla.ws/badge/sampctl-gui--style-2f2f2f.svg?style=for-the-badge)](https://github.com/kristoisberg/gui-style)
+[![sampctl](https://shields.southcla.ws/badge/sampctl-samp--gui--style-2f2f2f.svg?style=for-the-badge)](https://github.com/samp-gui/samp-gui-style)
 
 This library will probably not be useful for other people, but it will be a dependency of my upcoming GUI framework. It provides an easy way of creating GUI element styles and modifying their attributes.
 
@@ -10,7 +10,7 @@ This library will probably not be useful for other people, but it will be a depe
 Simply install to your project:
 
 ```bash
-sampctl package install kristoisberg/gui-style
+sampctl package install samp-gui/samp-gui-style
 ```
 
 Include in your code and begin using the library:
@@ -28,7 +28,9 @@ Include in your code and begin using the library:
 stock GUIStyle:CreateGUIStyle();
 stock bool:IsValidGUIStyle(GUIStyle:style_id);
 stock bool:DestroyGUIStyle(GUIStyle:style_id);
+stock bool:IsValidGUIStyleAttribute(GUIStyle:id, const attribute_name[], size = sizeof(attribute_name));
 stock GUIStyleAttributeType:GetGUIStyleAttributeType(GUIStyle:style_id, const attribute_name[], size = sizeof(attribute_name));
+stock bool:RemoveGUIStyleAttribute(GUIStyle:id, const attribute_name[], size = sizeof(attribute_name));
 stock bool:SetGUIStyleAttributeBool(GUIStyle:style_id, const attribute_name[], bool:value, size = sizeof(attribute_name));
 stock bool:GetGUIStyleAttributeBool(GUIStyle:style_id, const attribute_name[], &bool:value, size = sizeof(attribute_name));
 stock bool:SetGUIStyleAttributeInt(GUIStyle:style_id, const attribute_name[], value, size = sizeof(attribute_name));
