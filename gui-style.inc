@@ -356,7 +356,7 @@ stock bool:SetGUIStyleAttributeString_s(GUIStyle:id, const attribute_name[], Str
 		return false;
 	}
 
-	map_arr_set(GUIStyleAttributes[id], attribute_name, str_to_global(value), size);
+	map_arr_set(GUIStyleAttributes[id], attribute_name, str_to_global(str_clone(value)), size);
 
 	CallLocalFunction("OnGUIStyleAttributeChanged", "is", _:id, size);
 	return true;
