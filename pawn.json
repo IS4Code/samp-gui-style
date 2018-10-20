@@ -6,7 +6,12 @@
 	"dependencies": [
 		"sampctl/samp-stdlib",
 		"IllidanS4/PawnPlus",
-		"pawn-lang/YSI-Includes"
+		"YSI-Coding/y_hooks",
+		"YSI-Data/y_iterate",
+		"YSI-Core/y_utils"
+	],
+	"dev_dependencies": [
+		"YSI-Core/y_testing"
 	],
 	"runtime": {
 		"version": "0.3.7",

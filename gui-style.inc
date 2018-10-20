@@ -5,10 +5,10 @@
 
 
 #include <a_samp>
-#include <YSI_Data\y_iterate>
-#include <YSI_Core\y_utils>
+#include <YSI-Data\y_iterate>
+#include <YSI-Core\y_utils>
 #include <PawnPlus>
-#include <YSI_Coding\y_hooks>
+#include <YSI-Coding\y_hooks>
 
 
 #if !defined MAX_GUI_STYLES

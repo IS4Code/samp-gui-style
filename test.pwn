@@ -1,7 +1,7 @@
 #include "gui-style.inc"
 
 #define RUN_TESTS
-#include <YSI\y_testing>
+#include <YSI-Core\y_testing>
 
 Test:Main() {
     new GUIStyle:id = CreateGUIStyle();
