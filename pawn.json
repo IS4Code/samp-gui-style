@@ -1,6 +1,6 @@
 {
-	"user": "kristoisberg",
-	"repo": "gui-style",
+	"user": "samp-gui",
+	"repo": "samp-gui-style",
 	"entry": "test.pwn",
 	"output": "test.amx",
 	"dependencies": [
